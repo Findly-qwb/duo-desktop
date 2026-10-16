@@ -1,0 +1,25 @@
+{
+  "name": "@duo/ui",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Duo 自建设计系统：三层皮肤 token + headless 原语（组件源码自己持有，PLAN §2/§15）",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles": "./src/styles/index.css"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "typescript": "5.9.3"
+  }
+}

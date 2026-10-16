@@ -1,0 +1,51 @@
+/* ---------- 8. 输入区 ---------- */
+.inputzone{flex:none;padding:var(--s2) var(--s5) var(--s4);position:relative}
+.dockrow{max-width:768px;margin:0 auto var(--s2);display:flex;align-items:center;gap:6px;min-height:28px;flex-wrap:wrap}
+.promptbox{max-width:768px;margin:0 auto;border:1px solid var(--border-hover);border-radius:var(--r-xl);background:var(--surface-base);
+  box-shadow:var(--shadow-2);position:relative;transition:all var(--dur) var(--ease);overflow:visible}
+.promptbox::before{content:"";position:absolute;inset:-1px;border-radius:var(--r-xl);pointer-events:none;
+  background:var(--sheen);opacity:.7}
+.promptbox.focus{border-color:rgba(107,138,253,.65);box-shadow:var(--shadow-2),var(--glow)}
+.promptbox.dragover{border:1.5px dashed var(--surface-brand-base);background:rgba(76,110,245,.06)}
+.promptbox.busy{border-color:rgba(224,165,60,.4)}
+.pimgs{display:flex;gap:var(--s2);padding:11px 13px 0;flex-wrap:wrap}
+.pimgs .thumb{width:46px;height:46px}
+.ptext{width:100%;border:none;outline:none;resize:none;padding:13px 15px 5px;font-size:var(--fs-14);line-height:1.6;
+  max-height:220px;background:transparent;color:var(--text-strong);position:relative;z-index:1}
+.pbar{display:flex;align-items:center;gap:5px;padding:6px 8px 8px 9px;flex-wrap:wrap;position:relative;z-index:1}
+.selector{display:flex;align-items:center;gap:6px;border-radius:var(--r-md);padding:5px 9px;font-size:var(--fs-12);
+  color:var(--text-weak);border:1px solid transparent;transition:all var(--dur) var(--ease)}
+.selector:hover{background:var(--surface-raised-base);border-color:var(--border-base);color:var(--text-strong)}
+.selector .v{font-weight:600;color:var(--text-base)}
+.selector.on{background:var(--surface-brand-weak);border-color:var(--accent-line);color:var(--text-accent-2)}
+.selector.on .v{color:var(--text-strong)}
+.selector .caret{color:var(--text-weaker);display:flex}
+.pbar .spacer{flex:1}
+.sendbtn{width:33px;height:33px;border-radius:50%;background:var(--surface-brand-base);color:var(--text-on-brand-base);
+  display:grid;place-items:center;flex:none;border:none;transition:all var(--dur) var(--ease);box-shadow:var(--glow)}
+.sendbtn:hover{background:var(--surface-brand-hover);transform:translateY(-1px)}
+.sendbtn:disabled{background:var(--surface-raised-stronger);color:var(--text-weaker);cursor:not-allowed;box-shadow:none;transform:none}
+.sendbtn.stop{background:transparent;border:1.5px solid var(--surface-warning-strong);color:var(--surface-warning-strong);box-shadow:none}
+.sendbtn.stop:hover{background:var(--surface-warning-base)}
+.hintline{max-width:768px;margin:7px auto 0;font-size:var(--fs-11);color:var(--text-weaker);display:flex;gap:var(--s4);align-items:center;flex-wrap:wrap}
+.hintline .push{margin-left:auto;font-family:var(--f-mono);color:var(--text-weak)}
+.kbd{font-family:var(--f-mono);font-size:var(--fs-10);border:1px solid var(--border-active);border-bottom-width:2px;
+  border-radius:var(--r-xs);padding:1px 5px;background:var(--surface-raised-base);color:var(--text-weak);white-space:nowrap}
+
+/* 欢迎态 */
+.hero{display:none;text-align:center;margin:0 auto var(--s6)}
+.hero .logo{width:72px;height:72px;object-fit:contain;mix-blend-mode:var(--hero-blend)}
+.hero h2{font-size:var(--fs-28);font-weight:700;color:var(--text-strong);margin:10px 0 6px;letter-spacing:-.3px}
+.hero p{color:var(--text-weak);font-size:var(--fs-13)}
+.chips{display:none;justify-content:center;gap:var(--s2);margin:var(--s5) auto 0;max-width:768px;flex-wrap:wrap}
+.chips button{border:1px solid var(--border-base);background:var(--surface-raised-base);border-radius:20px;padding:7px 14px;
+  font-size:var(--fs-12);color:var(--text-base);display:flex;align-items:center;gap:7px;transition:all var(--dur) var(--ease)}
+.chips button:hover{border-color:var(--border-selected);background:var(--surface-brand-weak);color:var(--text-strong);transform:translateY(-1px)}
+.chips button .i{color:var(--text-interactive-base)}
+.view.welcome .taskhead,.view.welcome .messages,.view.welcome .tobottom,.view.welcome .rail-marks,.view.welcome .dockrow{display:none}
+.view.welcome .inputzone{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:64px}
+.view.welcome .hero{display:block}
+.view.welcome .chips{display:flex}
+.view.welcome .promptbox{max-width:724px}
+.view.welcome .ptext{min-height:104px;font-size:var(--fs-16);padding:17px 19px 5px}
+

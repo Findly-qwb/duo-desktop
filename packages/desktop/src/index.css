@@ -1,0 +1,2 @@
+/* duo Desktop 应用样式入口：只引入 @duo/ui 的三层令牌与组件样式（PLAN §15 导入方向门禁） */
+@import "../../ui/src/styles/index.css";

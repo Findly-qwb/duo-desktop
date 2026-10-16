@@ -1,0 +1,79 @@
+# rpi — a Rust agent runtime + CLI. See README.md and docs/architecture/overview.md.
+#
+# VENDOR 说明（PLAN §14：锁 hash、禁 cargo update）
+# - 来源：https://github.com/bigfish1913/pi-rust @ b6b8e8311a4d6fd5dd1dc9e436e96f5d4cd22a52（v0.4.0）
+# - 只 vendor 桌面所需 5 个 crate；rpi-cli / rpi-tui / rpi-plugin-sdk / rpi-extensions / examples 按 PLAN §13 不引入
+# - 与上游的差异（全部在本目录内就地注释，共 3 处）：
+#   1. crates/rpi-tools：删除对 rpi-plugin-sdk 的依赖，HOST_PRIVATE_ENV 用到的两个常量内联
+#      （上游仅借它共享 env 变量名；PLAN §13 明确不引 plugin-sdk）
+#   2. rusqlite 0.31 → 0.32：与宿主 duo-host-core 同版本，避免同一进程链接两份 bundled SQLite
+#   3. crates/rpi-tools/os_env.rs：删除已冗余的 `use CommandExt`（process_group 现为 inherent 方法）
+# - 升级 = 显式换 hash + 重打这两处补丁 + 跑全量回归
+[workspace]
+members = [
+    "crates/rpi-telemetry",
+    "crates/rpi-ai",
+    "crates/rpi-agent",
+    "crates/rpi-tools",
+    "crates/rpi-harness",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+rust-version = "1.78"
+license = "MIT"
+repository = "https://github.com/bigfish1913/pi-rust"
+homepage = "https://rpi.laofu.online/"
+version = "0.4.0"
+authors = ["BigFish <bigfish1913@gmail.com>"]
+
+[workspace.dependencies]
+# Async runtime
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "fs", "process", "sync", "io-util"] }
+tokio-util = { version = "0.7", features = ["rt"] }
+async-trait = "0.1"
+futures = "0.3"
+fs2 = "0.4"
+
+# Serialization / schemas
+serde = { version = "1", features = ["derive", "rc"] }
+serde_json = { version = "1", features = ["preserve_order", "raw_value"] }
+yaml_serde = "=0.10.2"
+indexmap = { version = "2", features = ["serde"] }
+schemars = { version = "0.8", features = ["preserve_order"] }
+jsonschema = "0.18"
+
+# HTTP / SSE (used by anthropic provider, M3)
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "stream"] }
+bytes = "1"
+eventsource-stream = "0.2"
+
+# Errors / logging
+thiserror = "1"
+tracing = "0.1"
+
+# Misc
+uuid = { version = "1", features = ["v4", "v7"] }
+# vendor 补丁 2：0.31 → 0.32，与宿主统一（见顶部说明）
+rusqlite = { version = "0.32", features = ["bundled"] }
+base64 = "0.22"
+png = "0.18"
+tempfile = "3"
+regex = "1"
+semver = "1"
+globset = "=0.4.15"
+dirs = "5"
+rpassword = "7"
+
+# rpi internal crates (package names and directories both use the `rpi-` prefix).
+rpi-telemetry = { path = "crates/rpi-telemetry", version = "0.4.0" }
+rpi-ai = { path = "crates/rpi-ai", version = "0.4.0" }
+rpi-agent = { path = "crates/rpi-agent", version = "0.4.0" }
+rpi-tools = { path = "crates/rpi-tools", version = "0.4.0" }
+rpi-harness = { path = "crates/rpi-harness", version = "0.4.0" }
+
+[profile.release]
+lto = "thin"
+codegen-units = 16
+strip = "symbols"

@@ -1,0 +1,19 @@
+/* @duo/ui 样式入口 —— 三层令牌结构（PLAN §4），源：prototype.html，勿在此文件写具体色值
+ *
+ *  L1 原语 / 结构  → tokens.css   （圆角、间距、字体族、动效、--fscale）
+ *  L2 语义         → skins.css    （三套内置皮肤 bundle + 皮肤补充令牌）
+ *  L3 组件         → 其余文件     （只允许引用 L2/L3，禁止硬编码色值 → scripts/ui-color-policy.mjs 门禁）
+ */
+@import "./tokens.css";
+@import "./skins.css";
+@import "./base.css";
+@import "./shell.css";
+@import "./views.css";
+@import "./stream.css";
+@import "./composer.css";
+@import "./popovers.css";
+@import "./panel.css";
+@import "./pages.css";
+@import "./modal.css";
+@import "./system.css";
+@import "./density.css";

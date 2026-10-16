@@ -1,0 +1,69 @@
+/* ---------- 14. v2-lite 减法层（功能不减，只降视觉密度） ---------- */
+/* 14.1 分隔信号单一化：容器靠背景差分层，边框只留给「可点」与「浮层」 */
+.pill{border:none;background:var(--surface-raised-strong)}
+.badge{border:none}
+.tool{border:none;background:var(--surface-raised-base)}
+.tool:hover{background:var(--surface-raised-strong)}
+.tool.running{box-shadow:inset 2px 0 0 var(--surface-info-strong)}
+.tool.err{box-shadow:inset 2px 0 0 var(--surface-critical-strong)}
+.think{border:none;background:var(--surface-raised-base)}
+.modcard,.ucard,.pcard,.mcard,.hrow,.sgroup{border:none;background:var(--surface-raised-base)}
+.modcard:hover,.hrow:hover{background:var(--surface-raised-strong)}
+.sgroup>.gh{border-bottom:1px solid var(--border-weak)}
+.bubble{border:none;box-shadow:none}
+.msg.user .bubble{background:var(--surface-brand-weak)}
+.dock-card{border:none;background:var(--surface-warning-base);box-shadow:inset 2px 0 0 var(--surface-warning-strong)}
+.dock-card.q{background:var(--surface-info-base);box-shadow:inset 2px 0 0 var(--surface-info-strong)}
+.qopt{border:none;background:var(--surface-raised-base)}
+.qopt.sel{background:var(--surface-brand-weak);box-shadow:inset 0 0 0 1px var(--border-selected)}
+.auth-method{border:none;background:var(--surface-raised-base)}
+.auth-method.on{background:var(--surface-brand-weak);box-shadow:inset 0 0 0 1px var(--border-selected)}
+.omni{border:none}
+.promptbox{box-shadow:var(--shadow-1)}
+.promptbox::before{content:none}
+.promptbox.focus{border-color:var(--border-focus);box-shadow:var(--shadow-1)}
+.sendbtn{box-shadow:none}
+/* 14.2 动效统一为 fade */
+@keyframes popin{from{opacity:0}to{opacity:1}}
+@keyframes modalin{from{opacity:0}to{opacity:1}}
+@keyframes slidein{from{opacity:0}to{opacity:1}}
+/* 14.3 等宽字只留给代码 / diff / 路径 */
+.statusbar,.sess .time,.acct .sub,.hrow .m,.modcard .meta,.cbhead{font-family:var(--f-ui)}
+/* 14.4 选中态去加粗，避免行宽抖动 */
+.rail .item.active{font-weight:400;box-shadow:none}
+.sess.active{box-shadow:none}
+/* 14.5 原型层开关：规格说明与屏目标记默认隐藏（⌘⇧P 或命令面板可开） */
+html:not([data-proto="on"]) .spec,html:not([data-proto="on"]) .proto-only{display:none !important}
+/* 14.6 TaskHeader 的 ⋯ 菜单 */
+.taskhead{position:relative}
+.menu{position:absolute;top:44px;right:var(--s5);min-width:216px;background:var(--surface-float-base);
+  border:1px solid var(--border-hover);border-radius:var(--r-md);box-shadow:var(--shadow-3);padding:5px;z-index:60;display:none}
+.menu.show{display:block;animation:popin var(--dur) var(--ease)}
+.menu button{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:7px 9px;border-radius:var(--r-sm);
+  font-size:var(--fs-12);color:var(--text-base)}
+.menu button:hover{background:var(--surface-float-hover);color:var(--text-strong)}
+.menu button .kbd{margin-left:auto}
+.menu button .push{margin-left:auto}
+.menu .sep{height:1px;background:var(--border-base);margin:4px 6px}
+/* 14.7 审批卡底部：例外规则从卡内三步开关降为一行入口 */
+.dc-foot{display:flex;align-items:center;gap:8px;font-size:var(--fs-11);color:var(--text-weaker);margin:0 0 10px;
+  padding-top:9px;border-top:1px solid var(--border-weak)}
+.dc-foot .i{color:var(--icon-weak)}
+.dc-foot .btn{margin-left:auto}
+/* 14.8 模型弹层里的模式 / 变体条（替代输入区三个 selector） */
+.mp-strip{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--border-base);flex-wrap:wrap}
+.vchips{display:flex;gap:4px}
+.vchips .subtab{padding:3px 9px;font-size:var(--fs-11)}
+/* 14.12 数字类文本改回正文字体 + 等宽数字（mono 只留给代码 / diff / 路径） */
+.pill b,.outcome b,.tl-legend b,.dc-head .src,.working .elapsed,.hrow .r,.ucard .big,.mp-row .price,.statusbar .sb{
+  font-family:var(--f-ui);font-variant-numeric:tabular-nums}
+/* 14.13 屏目索引：每屏类型标记（弹窗 / 设置页 / 对话状态 / 独立页 / 浮层） */
+.sm-item .type{font-size:var(--fs-10);color:var(--text-weaker);border:1px solid var(--border-base);
+  border-radius:var(--r-xs);padding:0 4px;margin-left:7px;font-weight:400;vertical-align:1px}
+/* 14.11 窄窗口：隐藏次级标签，栏位折叠由 fitShell() 按断点自动处理 */
+@media (max-width:1240px){.hide-n{display:none}.messages{padding:var(--s4) var(--s4) var(--s2)}}
+@media (max-width:1040px){.titlebar{padding:0 8px}.th-title{font-size:var(--fs-13)}}
+
+/* 提示：调试用的当前屏标记 */
+.screen-badge{position:absolute;top:8px;right:8px;font-family:var(--f-mono);font-size:var(--fs-10);color:var(--text-weaker);
+  background:var(--surface-inset-base);border:1px solid var(--border-base);border-radius:var(--r-xs);padding:2px 6px;z-index:22;opacity:.75}

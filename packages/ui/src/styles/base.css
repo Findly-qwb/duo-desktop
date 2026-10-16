@@ -1,0 +1,27 @@
+/* ---------- 2. 基础 ---------- */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font:var(--fs-13)/1.55 var(--f-ui);
+  background:var(--background-weak);
+  color:var(--text-base);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;-webkit-font-smoothing:antialiased;
+  font-variant-numeric:tabular-nums;
+}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+a{color:var(--text-interactive-base);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px;border-radius:var(--r-xs)}
+::placeholder{color:var(--text-weaker)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border:3px solid transparent;background-clip:content-box;border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--scroll-thumb-hover);background-clip:content-box}
+.i{width:14px;height:14px;flex:none;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px}
+.i.sm{width:12px;height:12px}.i.md{width:16px;height:16px}.i.lg{width:20px;height:20px}.i.xl{width:28px;height:28px}
+.mono{font-family:var(--f-mono)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}}
+

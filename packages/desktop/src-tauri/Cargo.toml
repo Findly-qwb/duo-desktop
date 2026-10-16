@@ -1,0 +1,52 @@
+[package]
+name = "duo-host-core"
+version = "0.1.0"
+description = "duo Desktop 宿主核心：IPC 协议 / SQLite 事实来源 / 权限引擎（Tauri 外壳与 rpi 适配在 MVP1 接入）"
+edition = "2021"
+
+[features]
+# 默认只编核心（离线、秒级）；外壳（tauri）单独开：cargo build --features shell
+default = []
+shell = ["dep:tauri", "dep:tauri-build"]
+
+[[bin]]
+name = "duo"
+path = "src/bin/duo.rs"
+required-features = ["shell"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "1"
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "sync", "time"] }
+tokio-util = { version = "0.7", features = ["rt"] }
+futures = "0.3"
+async-trait = "0.1"
+schemars = "0.8"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json", "blocking"] }
+rusqlite = { version = "0.32", features = ["bundled"] }
+globset = "0.4"
+uuid = { version = "1", features = ["v4"] }
+log = "0.4"
+
+# rpi Agent Runtime（PLAN §2/§6：嵌入不自研；PLAN §14：锁 commit hash 后 vendored）
+# vendor/pi-rust @ b6b8e8311a4d6fd5dd1dc9e436e96f5d4cd22a52（v0.4.0），补丁清单见 vendor/pi-rust/Cargo.toml 顶注。
+# 升级 = 显式换 hash + 重打补丁 + 全量回归，禁止 cargo update 顺带升级。
+rpi-agent = { path = "../../../vendor/pi-rust/crates/rpi-agent" }
+rpi-ai = { path = "../../../vendor/pi-rust/crates/rpi-ai", features = ["providers"] }
+rpi-tools = { path = "../../../vendor/pi-rust/crates/rpi-tools" }
+rpi-harness = { path = "../../../vendor/pi-rust/crates/rpi-harness" }
+
+# 外壳依赖：只有 --features shell 时才解析（tauri 依赖树很大）
+tauri = { version = "2", optional = true, features = ["tray-icon", "image-png"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[build-dependencies]
+tauri-build = { version = "2", optional = true }

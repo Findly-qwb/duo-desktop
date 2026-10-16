@@ -1,0 +1,29 @@
+{
+  "name": "duo-desktop",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.16.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @duo/desktop dev",
+    "build": "pnpm check:ui-boundaries && pnpm --filter @duo/desktop build",
+    "check": "pnpm check:ui-boundaries && biome check packages",
+    "check:ui-boundaries": "node scripts/check-ui-boundaries.mjs",
+    "i18n:scan": "node scripts/i18n-scan.mjs --manifest",
+    "i18n:extract": "node scripts/i18n-extract.mjs --all",
+    "i18n:gap": "node scripts/i18n-scan.mjs --missing",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.5",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "@biomejs/biome"
+    ]
+  }
+}
